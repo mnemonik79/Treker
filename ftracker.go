@@ -1,5 +1,3 @@
-package ftracker
-
 import (
 	"fmt"
 	"math"
@@ -82,14 +80,13 @@ const (
 // duration float64 — длительность тренировки в часах.
 func RunningSpentCalories(action int, weight, duration float64) float64 {
 	var rezult float64
-	if (duration * float64(60)) == 0 {
+	if duration == 0 {
 		return 0
 	}
-	rezult = (float64(runningCaloriesMeanSpeedMultiplier) * meanSpeed(action, duration) * float64(runningCaloriesMeanSpeedShift))
+	rezult = float64(runningCaloriesMeanSpeedMultiplier) * meanSpeed(action, duration) * float64(runningCaloriesMeanSpeedShift)
 	rezult = rezult * (weight / float64(mInKm))
 	rezult = rezult * duration * float64(minInH)
 	return rezult
-
 }
 
 // Константы для расчета калорий, расходуемых при ходьбе.
@@ -108,9 +105,7 @@ const (
 // height float64 — рост пользователя.
 func WalkingSpentCalories(action int, duration, weight, height float64) float64 {
 	// ваш код здесь
-
 	return (walkingCaloriesWeightMultiplier*weight + (math.Pow(meanSpeed(action, duration)*kmhInMsec, 2)/(height/cmInM))*walkingSpeedHeightMultiplier*weight) * duration * minInH
-	//return ((walkingCaloriesWeightMultiplier*weight + (math.Pow(speedKmc, 2)/(height*0.01))*walkingSpeedHeightMultiplier*weight) * duration * minInH)
 }
 
 // Константы для расчета калорий, расходуемых при плавании.
@@ -143,7 +138,5 @@ func swimmingMeanSpeed(lengthPool, countPool int, duration float64) float64 {
 // weight float64 — вес пользователя.
 func SwimmingSpentCalories(lengthPool, countPool int, duration, weight float64) float64 {
 	// ваш код здесь
-
 	return ((swimmingMeanSpeed(lengthPool, countPool, duration) + swimmingCaloriesMeanSpeedShift) * (swimmingCaloriesWeightMultiplier) * weight * duration)
-
 }
