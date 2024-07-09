@@ -1,3 +1,5 @@
+package ftracker
+
 import (
 	"fmt"
 	"math"
